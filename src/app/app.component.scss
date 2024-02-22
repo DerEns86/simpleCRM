@@ -1,0 +1,46 @@
+// .container{
+//     display: flex;
+// }
+
+.example-container{
+    height: 100vh;
+}
+
+.example-icon{
+    cursor: pointer;
+}
+
+.sidenav{
+    width: 200px;
+    ul{
+        list-style-type: none;
+        padding-inline: 0;
+        margin: 0;
+        li{
+            height: 32px;
+            display: flex;
+            align-items: center;
+            padding-inline: 16px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            gap: 16px;
+
+            &:hover{
+                background-color: rgba(0,0,0,0.05);
+            }
+           
+        }
+        
+    }
+}
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+}
+
+.router-container{
+    padding-top: 16px;
+    padding-inline: 56px;
+}
