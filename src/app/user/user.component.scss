@@ -3,3 +3,37 @@
     bottom: 56px;
     right: 56px;
 }
+
+mat-card{
+    padding: 16px;
+}
+
+table{
+    text-align: center;
+    border-collapse: collapse;
+    th{
+        color: rgba(0,0,0,0.3);
+        height: 50px;
+    }
+    tr{
+        border-bottom: 1px solid rgba(0,0,0,0.3);
+        cursor: pointer;
+        &:first-child{
+            cursor: unset;
+            &:hover{
+                background-color: unset;
+            }
+        }
+
+
+        &:last-child{
+            border-bottom: 0;
+        }
+        &:hover{
+            background-color: rgba(0,0,0,0.05);
+        }
+    }
+    td{
+        height: 40px;
+    }
+}
