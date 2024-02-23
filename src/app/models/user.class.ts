@@ -19,6 +19,7 @@ export class User {
 
     public toJson() {
         return {
+
             firstName: this.firstName,
             lastName: this.lastName,
             birthdate: this.birthdate,
@@ -29,3 +30,4 @@ export class User {
         }
     }
 }
+

@@ -6,16 +6,12 @@
       <th>City</th>
     </tr>
 
-    <tr>
-      <td>Name1</td>
-      <td>mail1</td>
-      <td>city1</td>
+    <tr *ngFor="let user of this.getUsers()" >
+      <td>{{user.firstName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.zip}} {{user.city}}</td>
     </tr>
-    <tr>
-      <td>Name1</td>
-      <td>mail1</td>
-      <td>city1</td>
-    </tr>
+   
 
   </table>
 </mat-card>

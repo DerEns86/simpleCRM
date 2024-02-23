@@ -15,6 +15,12 @@
 </mat-dialog-content>
 <mat-dialog-content class="fullWidth">
 <mat-form-field appearance="outline" class="fullWidth">
+  <mat-label >email</mat-label>
+  <input matInput [disabled]="loading" [(ngModel)]="user.email">
+</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-content class="fullWidth">
+<mat-form-field appearance="outline" class="fullWidth">
   <mat-label>Birthdate</mat-label>
   <input matInput  [disabled]="loading" [matDatepicker]="picker" [(ngModel)]="birthdate">
   <mat-hint>MM/DD/YYYY</mat-hint>

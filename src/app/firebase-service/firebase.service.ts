@@ -1,24 +1,32 @@
-import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, onSnapshot, query } from '@angular/fire/firestore';
+import { Injectable, OnDestroy, inject } from '@angular/core';
+import { Firestore, Unsubscribe, addDoc, collection, collectionData, doc, onSnapshot, query } from '@angular/fire/firestore';
+// import { User } from '../models/user.class';
+import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseService {
+export class FirebaseService implements OnDestroy {
 
 
-  firestore: Firestore = inject(Firestore)
+  firestore: Firestore = inject(Firestore);
+
+  allUsers: any[] = [];
+  unsubList;
   constructor() {
 
-    this.getTest();
+    this.unsubList = this.snapShotUserList();
+
+  }
+
+  ngOnDestroy(): void {
+    this.unsubList();
   }
 
 
-
-
   getUserRef() {
-    return collection(this.firestore, 'user');
+    return collection(this.firestore, 'users');
   }
 
 
@@ -26,18 +34,13 @@ export class FirebaseService {
     return doc(collection(this.firestore, colId), docId)
   }
 
-  getTest() {
-    const test = collectionData(this.getUserRef());
-    console.log('test: ', test)
-  }
-
-
-
   snapShotUserList() {
-    onSnapshot(this.getUserRef(), (list) => {
+    return onSnapshot(this.getUserRef(), (list) => {
+      this.allUsers = [];
       list.forEach(element => {
-        // this.users.push(element)
-        console.log('from snapshot:', element.data);
+        // this.allUsers.push( )
+        this.allUsers.push(element.data())
+        console.log('from snapshot:', element.data());
       });
     })
   };
@@ -62,27 +65,7 @@ export class FirebaseService {
 
 
 
-// #######  get ####################
 
-// getGamesRef() {
-//   return collection(this.firestore, 'games');
-// }
-
-// getSingleDocRef(colId: string, docId: string) {
-//   return doc(collection(this.firestore, colId), docId)
-//   //         -> Datenbankzugriff-<
-// }
-
-
-// snapShotGameList() {
-//   onSnapshot(this.getGamesRef(), (list) => {
-//     list.forEach(element => {
-
-//       console.log('from snapshot:', element.id);
-//     });
-//   })
-
-// }
 
 // snapshotSingleDoc(colId:string, docId:string){
 //   onSnapshot(this.getSingleDocRef(colId, docId), (docRef)=>{

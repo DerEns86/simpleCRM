@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -8,6 +8,8 @@ import { User } from '../models/user.class';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import { FirebaseService } from '../firebase-service/firebase.service';
+import { collection } from '@angular/fire/firestore';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -15,7 +17,9 @@ import { FirebaseService } from '../firebase-service/firebase.service';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatIconModule,
+  imports: [
+    CommonModule
+    ,MatIconModule,
     MatButtonModule,
     MatTooltipModule,
     AddDialogUserComponent,
@@ -29,12 +33,16 @@ import { FirebaseService } from '../firebase-service/firebase.service';
 
 export class UserComponent implements OnInit, OnDestroy {
 
-
+  users = this.firebase.allUsers;
  
-  constructor(public dialog: MatDialog, private userService: FirebaseService){ }
+  constructor(public dialog: MatDialog, private firebase: FirebaseService){ }
 
 ngOnInit(): void {
- 
+
+}
+
+getUsers(){
+  return this.firebase.allUsers;
 }
 
 ngOnDestroy(): void {
