@@ -2,10 +2,14 @@
 
     
         <mat-card-actions>
-            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+            <button mat-icon-button >
                 <mat-icon>arrow_back</mat-icon>
             </button>
-            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+            <button mat-icon-button [matMenuTriggerFor]="editUser" >
+                <mat-menu #editUser="matMenu">
+                    <button mat-menu-item (click)="openEditUser()">Edit</button>
+                   
+                  </mat-menu>
                 <mat-icon>more_vert</mat-icon>
             </button>
         </mat-card-actions>
@@ -23,7 +27,11 @@
 
 <mat-card class="mt-32">
 <mat-card-actions>
-    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+    <button mat-icon-button [matMenuTriggerFor]="editAdress" >
+        <mat-menu #editAdress="matMenu" >
+            <button mat-menu-item (click)="openEditAddress()">Edit</button>
+           
+          </mat-menu>
         <mat-icon>more_vert</mat-icon>
     </button>
 </mat-card-actions>

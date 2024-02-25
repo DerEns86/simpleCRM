@@ -31,7 +31,7 @@ export class AddDialogUserComponent {
 
   constructor(
     private userService: FirebaseService,
-    private dialogRef: MatDialogRef<AddDialogUserComponent>) { }
+    public dialogRef: MatDialogRef<AddDialogUserComponent>) { }
 
   saveUser() {
     if (this.birthdate)

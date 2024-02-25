@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
-import { Firestore, Unsubscribe, addDoc, collection, collectionData, doc, getDoc, onSnapshot, query } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, collectionData, doc, getDoc, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
 // import { User } from '../models/user.class';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
@@ -19,8 +19,9 @@ export class FirebaseService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubList();
-    
+    if (this.unsubList && typeof this.unsubList === 'function') {
+      this.unsubList();
+    }
   }
 
   getUserRef() {
@@ -53,12 +54,14 @@ export class FirebaseService implements OnDestroy {
     )
   }
 
+  async updateUser(docId: string, item: {}) {
+  await updateDoc(this.getSingleDocRef('users', docId), item).catch(
+    (err) => { console.error(err) }
+  ).then();
+}
 
-// snapshotSingleDoc(colId:string, docId:string){
-//   onSnapshot(this.getSingleDocRef(colId, docId), (docRef)=>{
-//     console.log(docRef);
-//   })
-// }
+
+
 
 
 

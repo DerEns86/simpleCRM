@@ -7,11 +7,21 @@ import { ActivatedRoute } from '@angular/router';
 import { FirebaseService } from '../firebase-service/firebase.service';
 import { doc, docData } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
+import {MatMenuModule} from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { EditDialogUserComponent } from '../edit-dialog-user/edit-dialog-user.component';
+import { EditDialogAdressComponent } from '../edit-dialog-adress/edit-dialog-adress.component';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, 
+    MatCardModule, 
+    MatButtonModule, 
+    MatIconModule,
+    MatMenuModule,
+    EditDialogUserComponent,
+    EditDialogAdressComponent],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss'
 })
@@ -21,9 +31,9 @@ export class UserDetailComponent implements OnInit, OnDestroy{
   user: User = new User(User);
  unsubscribe: any;
 
-  constructor(private route: ActivatedRoute, private firestore: FirebaseService) {
-   
-
+  constructor(public dialog: MatDialog,
+    private route: ActivatedRoute, 
+    private firestore: FirebaseService) {
   }
 
   ngOnInit() {
@@ -39,7 +49,22 @@ export class UserDetailComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy() {
-   this.unsubscribe.unsubscribe();
+    if (this.unsubscribe) {
+      this.unsubscribe.unsubscribe();
+    }
+  }
+
+  openEditUser() {
+    const dialog = this.dialog.open(EditDialogUserComponent);
+    dialog.componentInstance.user = new User(this.user);
+    dialog.componentInstance.userId = this.userId;
+    console.log('Edit user', this.user);
+  }
+  openEditAddress() {
+    const dialog = this.dialog.open(EditDialogAdressComponent);
+    dialog.componentInstance.user = new User(this.user);
+    dialog.componentInstance.userId = this.userId;
+    console.log('Edit address');
   }
 }
   
