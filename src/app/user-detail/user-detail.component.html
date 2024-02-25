@@ -1,0 +1,38 @@
+<mat-card class="detailHeader">
+
+    
+        <mat-card-actions>
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </mat-card-actions>
+        <div mat-card-avatar class="header-image">
+            <img src="./../../assets/img/avatar.png" alt="">
+        </div>
+
+        <div class="userInfo">
+            <p>{{user.firstName}} {{user.lastName}}</p>
+            <p>{{user.email}}</p>
+        </div>
+    
+
+</mat-card>
+
+<mat-card class="mt-32">
+<mat-card-actions>
+    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+</mat-card-actions>
+    <mat-card-header>
+        <mat-card-title>Adress</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{user.street}}</p>
+        <p>{{user.city}}</p>
+        <p>Zip</p>
+    </mat-card-content>
+</mat-card>

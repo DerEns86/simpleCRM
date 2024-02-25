@@ -10,6 +10,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { FirebaseService } from '../firebase-service/firebase.service';
 import { collection } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -24,7 +25,8 @@ import { CommonModule } from '@angular/common';
     MatTooltipModule,
     AddDialogUserComponent,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    RouterModule
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -33,16 +35,18 @@ import { CommonModule } from '@angular/common';
 
 export class UserComponent implements OnInit, OnDestroy {
 
-  users = this.firebase.allUsers;
- 
-  constructor(public dialog: MatDialog, private firebase: FirebaseService){ }
+  users = this.firestore.allUsers;
+  userId: string = '';
+   
+  constructor(public dialog: MatDialog, private firestore: FirebaseService){ }
 
-ngOnInit(): void {
+  ngOnInit(): void {
+   
+  }
 
-}
 
 getUsers(){
-  return this.firebase.allUsers;
+ return this.firestore.allUsers;
 }
 
 ngOnDestroy(): void {

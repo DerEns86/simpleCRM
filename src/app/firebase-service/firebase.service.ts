@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
-import { Firestore, Unsubscribe, addDoc, collection, collectionData, doc, onSnapshot, query } from '@angular/fire/firestore';
+import { Firestore, Unsubscribe, addDoc, collection, collectionData, doc, getDoc, onSnapshot, query } from '@angular/fire/firestore';
 // import { User } from '../models/user.class';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
@@ -15,15 +15,13 @@ export class FirebaseService implements OnDestroy {
   allUsers: any[] = [];
   unsubList;
   constructor() {
-
     this.unsubList = this.snapShotUserList();
-
   }
 
   ngOnDestroy(): void {
     this.unsubList();
+    
   }
-
 
   getUserRef() {
     return collection(this.firestore, 'users');
@@ -35,21 +33,17 @@ export class FirebaseService implements OnDestroy {
   }
 
   snapShotUserList() {
-    return onSnapshot(this.getUserRef(), (list) => {
-      this.allUsers = [];
-      list.forEach(element => {
-        // this.allUsers.push( )
-        this.allUsers.push(element.data())
-        console.log('from snapshot:', element.data());
+   return onSnapshot(this.getUserRef(), (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        this.allUsers.push({
+          id: doc.id,
+          ...doc.data()
+        });
+        // console.log(doc.id, " => ", doc.data());
       });
-    })
-  };
+    });
+  }
 
-  snapshotSingleDoc(colId: string, docId: string) {
-    onSnapshot(this.getSingleDocRef(colId, docId), (docRef) => {
-      console.log(docRef);
-    })
-  };
 
   async addUser(item: {}) {
     await addDoc(this.getUserRef(), item).catch(
@@ -59,13 +53,6 @@ export class FirebaseService implements OnDestroy {
     )
   }
 
-}
-
-
-
-
-
-
 
 // snapshotSingleDoc(colId:string, docId:string){
 //   onSnapshot(this.getSingleDocRef(colId, docId), (docRef)=>{
@@ -74,16 +61,18 @@ export class FirebaseService implements OnDestroy {
 // }
 
 
-// // ##############################################
 
-// subUserList() {
-//   this.users$$ = collectionData(this.getGamesRef());
-//   this.games = this.games$.subscribe((list:any) => {
-//     list.forEach((element: any) => {
-//       console.log('from service: ', element);
-//     });
-//   });
-// }
+}
+
+
+
+
+
+
+
+
+
+
 
 // async addGame(item: {}) {
 //   await addDoc(this.getGamesRef(), item).catch(
